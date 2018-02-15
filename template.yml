@@ -28,3 +28,17 @@ Resources:
           Properties:
             Path: /
             Method: post
+  Mihir:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: mihir.handler
+      Runtime: python3.6
+      Role:
+        Fn::ImportValue:
+          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
+      Events:
+        GetEvent:
+          Type: Api
+          Properties:
+            Path: /mihir/{name}
+            Method: get
